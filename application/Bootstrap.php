@@ -79,8 +79,7 @@ class FNC{
     static function dateFrToMysql($date_fr = '') {
         if ($date_fr != '') {
             $date_fr_arr = explode("/", $date_fr);
-
-
+            
             if (count($date_fr_arr) == 3) {
                 if (intval($date_fr_arr[0]) > 0 && intval($date_fr_arr[1]) > 0 && intval($date_fr_arr[2]) > 1940) {
                     return $date_mysql = $date_fr_arr[2] . '-' . $date_fr_arr[1] . '-' . $date_fr_arr[0] . ' 00:00:00';
