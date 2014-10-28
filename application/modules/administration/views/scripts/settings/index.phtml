@@ -1,0 +1,87 @@
+<div class="content-box"><!-- Start Content Box -->
+					<div class="section1">
+                    	<h3 class="ttr_fc">Paramètres Site</h3>
+                        <form name="" method="post" action="">
+                        	<p class="ligne-adm1">
+                            	<label for="tva">Nom Site</label>
+                                <input type="text" name="name" id="name" class="text-input medium-input" value="<?php echo $this->config->name ?>" >
+                        	</p>
+                            <p class="ligne-adm1">
+                            	<label for="tva">Url</label>
+                                <input type="text" name="url" id="url" class="text-input medium-input" value="<?php echo $this->config->url ?>" >
+                        	</p>
+                          <p class="ligne-adm1">
+                           	<label for="tva">Description</label>
+                              <textarea name="description" class="text-input medium-input" id="description" style="height:200px"><?php echo $this->config->description ?></textarea>
+                        	</p>
+                            <p class="ligne-adm1">
+                            	<label for="tva">Email</label>
+                                <input type="text" name="email" id="email" class="text-input medium-input" value="<?php echo $this->config->email ?>" >
+                        	</p>
+                            
+                            <p class="ligne-adm1">
+                            	<label for="tva">Tél</label>
+                                <input type="text" name="tel" id="tel" class="text-input medium-input" value="<?php echo $this->config->tel ?>" >
+                        	</p>
+                            <p class="ligne-adm1">
+                            	<label for="tva">Fax</label>
+                                <input type="text" name="fax" id="fax" class="text-input medium-input" value="<?php echo $this->config->fax ?>" >
+                        	</p>
+                            <p class="ligne-adm1">
+                            	<label for="tva">Gsm</label>
+                                <input type="text" name="gsm" id="gsm" class="text-input medium-input" value="<?php echo $this->config->gsm ?>" >
+                        	</p>
+                          <p class="ligne-adm1">
+                           	<label for="tva">Adresse</label>
+                              <textarea name="adresse" class="text-input medium-input" id="adresse" style="height:120px"><?php echo $this->config->adresse ?></textarea>
+                        	</p>
+                            
+                            
+                            
+                            
+                            
+                            <input type="submit" name="subeditsettings" value="Modifier" class="button" />
+                            
+                        </form>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+           
+            <div class="section1">
+                <form action="<?php echo $this->url(array('controller'=>'settings','action'=>'index'));?>" method="post" class="form" id="formauth">
+                    <input type="hidden" name="id" value="<?php echo $this->escape($this->user->id); ?>" id="id" />
+                    <h3 class="ttr_fc">Accès Administrateur</h3>
+					    <p>
+                            <label for="email">Login Administrateur : <span class="required">*</span></label>
+                            <input type="text" name="username" id="username" style="width:200px" value="<?php echo $this->escape(stripslashes($this->user->username)); ?>" class="text-input small-input">
+                            
+                        </p>
+
+			            <p>
+                            <label for="textfield" >Mot de Passe : * </label>
+                            <input type="password" name="password" id="password" value="" style="width:200px" class="text-input small-input">
+                            
+                        </p>
+
+			            <p>
+                            <label for="password">Confirmer Mot de Passe : *</label>
+                            <input type="password" name="confirmPassword" id="confirmPassword" style="width:200px" value="" class="text-input small-input">
+                            
+                        </p>
+						<p>
+                            <input type="submit" name="Enregistrer" id="Enregistrer" value="Enregistrer" class="button">
+                        </p>
+
+				 <!-- end of box-body -->
+		 </form>
+		</div>
+        
+        
+        
+        
+             
+</div>

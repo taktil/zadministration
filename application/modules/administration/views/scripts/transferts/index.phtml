@@ -1,0 +1,175 @@
+<div class="content-box"><!-- Start Content Box -->
+				
+				<div class="content-box-header">
+					
+					<h3>Transferts</h3>
+					
+					<ul class="content-box-tabs">
+						<li><a href="#tab1" <?php echo ($this->ong==0)?'class="default-tab"':'' ?>>Liste</a></li> <!-- href must be unique and match the id of target div -->
+						<li><a href="#tab2" <?php echo ($this->ong==1)?'class="default-tab"':'' ?>>Ajouter</a></li>
+					</ul>
+					<div class="clear"></div>
+				</div> <!-- End .content-box-header -->
+				
+				<div class="content-box-content">
+			   
+					<div class="tab-content <?php echo ($this->ong==0)?'default-tab':'' ?>" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
+					
+						<table>
+							
+							<thead>
+								<tr>
+								   <th>Titre</th>
+								   <th><!-- Depart --></th>
+								   <th><!-- Arrivée --></th>
+								   <th><!-- Prix --></th>
+								   <th></th>
+								   <th>Actions</th>
+								</tr>
+								
+							</thead>
+						 
+							<?php /* <tfoot>
+								<tr>
+									<td colspan="5">
+										
+										
+										<div class="pagination">
+											<a href="#" title="First Page">&laquo; First</a><a href="#" title="Previous Page">&laquo; Previous</a>
+											<a href="#" class="number" title="1">1</a>
+											<a href="#" class="number" title="2">2</a>
+											<a href="#" class="number current" title="3">3</a>
+											<a href="#" class="number" title="4">4</a>
+											<a href="#" title="Next Page">Next &raquo;</a><a href="#" title="Last Page">Last &raquo;</a>
+										</div> <!-- End .pagination -->
+										<div class="clear"></div>
+									</td>
+								</tr>
+							</tfoot> */?>
+						 
+							<tbody>
+								
+								<?php 
+								foreach($this->transferts as $ligne){
+									
+								?>
+								
+								<tr>
+									<td><?php echo $this->escape($ligne->titre); ?></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>
+										<!-- Icons -->
+										 <a href="/administration/transferts/modifier/id/<?php echo $ligne->id ?>" title="Edit"><img src="<?php echo $this->baseUrl(); ?>/adminres/images/icons/pencil.png" alt="Edit" /></a>
+										 <a href="/administration/transferts/supprimer/id/<?php echo $ligne->id ?>" title="Delete"><img src="<?php echo $this->baseUrl(); ?>/adminres/images/icons/cross.png" alt="Delete" /></a> 
+									</td>
+								</tr>
+								<?php } ?>
+								
+							</tbody>
+							
+						</table>
+						
+					</div> <!-- End #tab1 -->
+					
+					<div class="tab-content <?php echo ($this->ong==1)?'default-tab':'' ?>" id="tab2">
+					
+						<form action="" method="post" enctype="multipart/form-data">
+							
+							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+								
+
+								<p>
+									<label>Destination Depart </label>
+									<select name="destination_depart_id" id="destination_depart_id">
+										<?php foreach ($this->destinations as $key => $ligne): ?>
+										<option value="<?php echo $this->escape($ligne->id) ?>"><?php echo $this->escape($ligne->libelle) ?></option>
+										<?php endforeach ?>
+									</select>
+								</p>
+
+								<p>
+									<label>Destination Arrivée </label>
+									<select name="destination_arrivee_id" id="destination_arrivee_id">
+										<?php foreach ($this->destinations as $key => $ligne): ?>
+										<option value="<?php echo $this->escape($ligne->id) ?>"><?php echo $this->escape($ligne->libelle) ?></option>
+										<?php endforeach ?>
+									</select>
+								</p>
+
+								<p>
+									<label>Titre</label>
+									<input class="text-input medium-input" type="text" id="libelle" name="libelle" value="" />
+								</p>
+								
+                                <p>
+									<label>Titre 2</label>
+									<input class="text-input medium-input" type="text" id="titre" name="titre" />
+								</p>
+
+                                
+								 <p>
+									<label>Tarif</label>
+									
+									<table>
+										<tr>
+											<td>prix groupe</td>
+											<td>prix 1</td>
+											<td>prix 2</td>
+											<td>prix 3</td>
+											<td>prix 4</td>
+											<td>prix 5</td>
+											<td>prix 6</td>
+											<td>prix 7</td>
+											<td>prix 8</td>
+											<td>prix 9</td>
+											<td>prix 10</td>
+										</tr>
+
+										<tr>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_public" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_1" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_2" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_3" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_4" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_5" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_6" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_7" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_8" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_9" value=""></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_10" value=""></td>
+										</tr>
+
+									</table>
+
+
+								</p>
+                                
+                               
+								<p>
+									<label>Description</label>
+									<textarea class="text-input textarea ckeditor" id="description" name="description" cols="79" rows="15"></textarea>
+								</p>
+								<p>
+									<label>Image (250px / 200px)</label>
+									<input type="file" id="image" name="image" />
+									<label for=""><input type="checkbox" name="recadrer" value="1"> Recadrer photo</label>
+								</p>
+								
+								<p>
+									<input class="button" type="submit" value="Ajouter" />
+								</p>
+								
+							</fieldset>
+							
+							<div class="clear"></div><!-- End .clear -->
+							
+						</form>
+						
+					</div> <!-- End #tab2 -->        
+					
+				</div> <!-- End .content-box-content -->
+				
+			</div>

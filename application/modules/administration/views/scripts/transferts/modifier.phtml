@@ -1,0 +1,185 @@
+<script>
+
+$(document).ready(function(){
+	$( "#prochain_depart" ).datepicker();
+});
+</script>
+
+<div class="content-box"><!-- Start Content Box -->
+				
+				<div class="content-box-header">
+					
+					<h3>Modifier</h3>
+					
+					<ul class="content-box-tabs">
+						<li><a href="#tab1" <?php echo (!$this->ong)?'class="default-tab"':'' ?>>Modifier</a></li>
+						<li><a href="#tab7" <?php echo ($this->ong=='conditions')?'class="default-tab"':'' ?>>Conditions </a></li>
+					</ul>
+					
+					<div class="clear"></div>
+					
+				</div> <!-- End .content-box-header -->
+				
+				<div class="content-box-content">
+			   
+					<div class="tab-content <?php echo (!$this->ong)?'default-tab':'' ?>" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
+					
+					
+						<form action="" method="post" enctype="multipart/form-data">
+							
+							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+								
+								<p>
+									<label>Destination Depart </label>
+									<select name="destination_depart_id" id="destination_depart_id">
+										<?php foreach ($this->destinations as $key => $ligne): ?>
+										<option value="<?php echo $this->escape($ligne->id) ?>" <?php echo ($this->transfert->destination_depart_id==$ligne->id)?'selected="selected"':'' ?>><?php echo $this->escape($ligne->libelle) ?></option>
+										<?php endforeach ?>
+									</select>
+								</p>
+
+								<p>
+									<label>Destination Arrivée </label>
+									<select name="destination_arrivee_id" id="destination_arrivee_id">
+										<?php foreach ($this->destinations as $key => $ligne): ?>
+										<option value="<?php echo $this->escape($ligne->id) ?>" <?php echo ($this->transfert->destination_arrivee_id==$ligne->id)?'selected="selected"':'' ?>><?php echo $this->escape($ligne->libelle) ?></option>
+										<?php endforeach ?>
+									</select>
+								</p>
+
+
+								
+                                <p>
+									<label>Titre</label>
+									<input class="text-input medium-input" type="text" id="libelle" name="libelle" value="<?php echo $this->escape($this->transfert->libelle) ?>" />
+								</p>
+
+								<p>
+									<label>Titre 2</label>
+									<input class="text-input medium-input" type="text" id="titre" name="titre" value="<?php echo $this->escape($this->transfert->titre) ?>" />
+								</p>
+
+                                <p>
+									<label>Tarif</label>
+									
+									<?php 
+										$tarif_article=null;
+										if($this->tarif_article){
+											$tarif_article=$this->tarif_article;
+										}
+									 ?>
+									<table>
+										<tr>
+											<td>Prix public</td>
+											<td>Prix 1</td>
+											<td>Prix 2</td>
+											<td>Prix 3</td>
+											<td>Prix 4</td>
+											<td>Prix 5</td>
+											<td>Prix 6</td>
+											<td>Prix 7</td>
+											<td>Prix 8</td>
+											<td>Prix 9</td>
+											<td>Prix 10</td>
+										</tr>
+
+										<tr>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_public" value="<?php echo ($tarif_article)?$tarif_article->prix_public:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_1" value="<?php echo ($tarif_article)?$tarif_article->prix_1:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_2" value="<?php echo ($tarif_article)?$tarif_article->prix_2:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_3" value="<?php echo ($tarif_article)?$tarif_article->prix_3:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_4" value="<?php echo ($tarif_article)?$tarif_article->prix_4:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_5" value="<?php echo ($tarif_article)?$tarif_article->prix_5:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_6" value="<?php echo ($tarif_article)?$tarif_article->prix_6:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_7" value="<?php echo ($tarif_article)?$tarif_article->prix_7:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_8" value="<?php echo ($tarif_article)?$tarif_article->prix_8:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_9" value="<?php echo ($tarif_article)?$tarif_article->prix_9:''; ?>"></td>
+											<td><input type="text" style="width: 60px" class="text-input" name="prix_10" value="<?php echo ($tarif_article)?$tarif_article->prix_10:''; ?>"></td>
+										</tr>
+
+									</table>
+
+
+								</p>
+                                
+                               
+								<p>
+									<label>Description</label>
+									<textarea class="text-input textarea ckeditor" id="description" name="description" cols="79" rows="15"><?php echo ($this->transfert->description) ?></textarea>
+								</p>
+
+								<p>
+									<?php if($this->transfert->image!=''){ ?>
+                           	  		<div><img src="/photos/<?php echo $this->transfert->image ?>" width="233" /></div>
+                                    <?php } ?>
+									<label>Image (250px / 200px)</label>
+									<input type="file" id="image" name="image" />
+									<label for=""><input type="checkbox" name="recadrer" value="1"> Recadrer photo</label>
+								</p>
+
+
+
+
+								
+								
+
+								
+
+								<p>
+									<input class="button" name="subedit_main" type="submit" value="Modifier" />
+								</p>
+								
+							</fieldset>
+							
+							<div class="clear"></div><!-- End .clear -->
+							
+						</form>
+						
+						
+					</div> <!-- End #tab1 -->
+                    
+                    
+
+
+
+
+                    
+					
+                    
+					<div class="tab-content <?php echo ($this->ong=='conditions')?'default-tab':'' ?>" id="tab7">
+                    	<form action="" method="post" enctype="multipart/form-data">
+							
+							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+								<p>
+									<label>Conditions </label>
+									<textarea class="text-input textarea ckeditor" id="conditions" name="conditions" cols="79" rows="15"><?php echo $this->escape($this->transfert->conditions); ?></textarea>
+								</p>
+
+								
+
+
+                                
+                                
+                                
+								<p>
+									<input class="button" type="submit" name="subedit_conditions" value="Valider" />
+								</p>
+								
+                                
+                                
+							</fieldset>
+							
+							<div class="clear"></div><!-- End .clear -->
+							
+						</form>
+                    </div>
+
+
+
+                    
+                     <!-- End #tab1 -->
+				    
+					
+				</div> <!-- End .content-box-content -->
+				
+			</div>

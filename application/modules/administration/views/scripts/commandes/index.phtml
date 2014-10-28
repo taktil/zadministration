@@ -1,0 +1,78 @@
+<div class="content-box"><!-- Start Content Box -->
+				
+	<div class="content-box-header">
+		
+		<h3>Commandes</h3>
+		
+		<ul class="content-box-tabs">
+			<li><a href="#tab1" <?php echo ($this->ong==0)?'class="default-tab"':'' ?>>Liste</a></li> <!-- href must be unique and match the id of target div -->
+			
+		</ul>
+		<div class="clear"></div>
+	</div> <!-- End .content-box-header -->
+	
+	<div class="content-box-content">
+   
+		<div class="tab-content <?php echo ($this->ong==0)?'default-tab':'' ?>" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
+		
+			<table style="font-size:12px">
+				
+				<thead>
+					<tr>
+                    	<th>Ref</th>
+					   <th>Client</th>
+					   <th>Email</th>
+					   <th>Date</th>
+					   <th></th>
+
+					   <th>Prix payé</th>
+                       <th>Etat commande</th>
+					   <th>Actions</th>
+					</tr>
+					
+				</thead>
+			 
+				
+			 
+				<tbody>
+					
+					<?php 
+					foreach($this->commandes as $ligne){
+						
+						$client=$this->clients[$ligne->client_id];
+						$date=new DateTime($ligne->date);
+						$date_arrivee=new DateTime($ligne->date_arrivee);
+
+					?>
+					
+					<tr>
+                    	<td>
+                        <?php echo $this->escape($ligne->id); ?>
+                        
+                        </td>
+						<td><a href="/administration/clients/details/id/<?php echo $client->id ?>"><?php echo $this->escape($client->sexe.' '.$client->nom.' '.$client->prenom); ?></a></td>
+						<td><?php echo $this->escape($client->email); ?></td>
+
+						<td><?php echo $date->format('d/m/Y H:i'); ?></td>
+						<td></td>
+
+						<td><?php echo $this->escape($ligne->prix_total); ?> dhs</td>
+                        <td>
+                        	<?php echo FNC::getCommandeEtat($ligne); ?>
+                        </td>
+						<td>
+							<a href="/administration/commandes/details/id/<?php echo $ligne->id ?>">Afficher détails</a>
+							
+						</td>
+						
+					</tr>
+					<tr>
+						
+					</tr>
+					<?php } ?>
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

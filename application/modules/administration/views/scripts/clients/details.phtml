@@ -1,0 +1,108 @@
+<div class="content-box"><!-- Start Content Box -->
+				
+				<div class="content-box-header">
+					
+					<h3>Detail client</h3>
+					
+					<ul class="content-box-tabs">
+						<li><a href="#tab1" class="default-tab">details</a></li> <!-- href must be unique and match the id of target div -->
+						
+					</ul>
+					<div class="clear"></div>
+				</div> <!-- End .content-box-header -->
+				
+				<div class="content-box-content">
+			   
+					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
+					<table>
+						<tr>
+						
+							<td style="width:200px"><b>SEXE : </b></td>
+							<td><?php echo $this->escape($this->client->sexe); ?></td>
+						
+						</tr>						
+						<tr>
+						
+							<td style="width:200px"><b>PRENOM : </b></td>
+							<td><?php echo $this->escape($this->client->prenom); ?></td>
+						
+						</tr>							
+						<tr>
+						
+							<td style="width:200px"><b>NOM : </b></td>
+							<td><?php echo $this->escape($this->client->nom); ?></td>
+						
+						</tr>							
+						<tr>
+						
+							<td style="width:200px"><b>TEL : </b></td>
+							<td><?php echo $this->escape($this->client->tel); ?></td>
+						
+						</tr>							
+						<tr>
+						
+							<td style="width:200px"><b>GSM : </b></td>
+							<td><?php echo $this->escape($this->client->gsm); ?></td>
+						
+						</tr>							
+						<tr>
+						
+							<td style="width:200px"><b>FAX : </b></td>
+							<td><?php echo $this->escape($this->client->fax); ?></td>
+						
+						</tr>							
+						<tr>
+						
+							<td style="width:200px"><b>EMAIL : </b></td>
+							<td><?php echo $this->escape($this->client->email); ?></td>
+						
+						</tr>							
+						<tr>
+						
+							<td style="width:200px"><b>ADRESSE : </b></td>
+							<td><?php echo $this->escape($this->client->adresse); ?></td>
+						
+						</tr>							
+						<tr>
+						
+							<td style="width:200px"><b>VILLE : </b></td>
+							<td><?php echo $this->escape($this->client->ville); ?></td>
+						
+						</tr>							
+						<tr>
+						
+							<td style="width:200px"><b>CP : </b></td>
+							<td><?php echo $this->escape($this->client->cp); ?></td>
+						
+						</tr>							
+						<tr>
+						
+							<td style="width:200px"><b>PAYS : </b></td>
+							<td><?php echo $this->escape($this->client->pays); ?></td>
+						
+						</tr>							
+											
+						<tr>
+						
+							<td style="width:200px"><b>ETAT : </b></td>
+							<td><?php echo $this->escape($this->client->etat); ?></td>
+						
+						</tr>							
+
+						<tr>
+						
+							<td style="width:200px"><b>ACTIVE : </b></td>
+							<td><?php echo $this->escape($this->client->active); ?></td>
+						
+						</tr>							
+						
+						<tr>
+						
+							<td style="width:200px"><b>DATE INSCRIPTION : </b></td>
+							<td><?php echo $this->escape($this->client->date_inscription); ?></td>
+						
+						</tr>
+						</table>
+					</div>
+				</div>
+			</div>

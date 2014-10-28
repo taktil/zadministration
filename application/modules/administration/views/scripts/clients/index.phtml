@@ -1,0 +1,74 @@
+<div class="content-box"><!-- Start Content Box -->
+				
+				<div class="content-box-header">
+					
+					<h3>Clients</h3>
+					
+					<ul class="content-box-tabs">
+						<li><a href="#tab1" <?php echo ($this->ong==0)?'class="default-tab"':'' ?>>Liste</a></li> <!-- href must be unique and match the id of target div -->
+						
+					</ul>
+					<div class="clear"></div>
+				</div> <!-- End .content-box-header -->
+				
+				<div class="content-box-content">
+			   
+					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
+					
+						<table style="font-size:12px">
+							
+							<thead>
+								<tr>
+                                	<th>Ref</th>
+								   <th>Nom</th>
+								   <th>Email</th>
+								   <th>Tél</th>
+								   <th>Date inscription</th>
+								   <th>Etat</th>
+                                   <th>Nbr commandes</th>
+								   <th>Actions</th>
+								</tr>
+								
+							</thead>
+						 
+							
+						 
+							<tbody>
+								
+								<?php 
+								foreach($this->clients as $ligne){
+									$date=new DateTime($ligne->date_inscription);
+								?>
+								
+								<tr>
+                                	<td><?php echo $this->escape($ligne->id); ?></td>
+									<td><?php echo $this->escape($ligne->sexe.' '.$ligne->nom.' '.$ligne->prenom); ?></td>
+									<td><?php echo $this->escape($ligne->email); ?></td>
+									<td><?php echo $this->escape($ligne->tel); ?></td>
+
+									<td><?php echo $date->format('d/m/Y H:i'); ?></td>
+									<td><?php echo $this->escape($ligne->etat); ?></td>
+									<td></td>
+									<td>
+										<a href="/administration/clients/details/id/<?php echo $ligne->id ?>">Afficher</a>
+										<a href="/administration/clients/supprimer/id/<?php echo $ligne->id ?>">supprimer</a>
+
+									</td>
+									
+								</tr>
+								<tr>
+									
+								</tr>
+								<?php } ?>
+								
+							</tbody>
+							
+						</table>
+						
+					</div> <!-- End #tab1 -->
+					
+					 <!-- End #tab2 -->        
+					
+				</div> <!-- End .content-box-content -->
+				
+			</div>
