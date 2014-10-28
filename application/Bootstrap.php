@@ -28,7 +28,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 
 
 class FNC{
-	
     static function dateFrToTime($date) {
         if ($date != '') {
             $tab = explode('/', $date);
@@ -38,12 +37,8 @@ class FNC{
                 $date = false;
             }
         }
-
         return $date;
     }
- 
-
-
     static function stringCutter($pStr, $pMaxLen = 40) {
         if (strlen($pStr) > $pMaxLen) {
             $returnStr = '';
@@ -59,11 +54,8 @@ class FNC{
         } else {
             $returnStr = $pStr;
         }
-
         return $returnStr;
     }
-
-
     static function getObjetById($coll, $id) {
         foreach ($coll as $ligne) {
             if ($ligne->id == $id) {
@@ -72,7 +64,6 @@ class FNC{
         }
         return null;
     }
-
 
     // date_fr format = d/m/y
     // and return yyyy-mm-dd hh:ss:00
