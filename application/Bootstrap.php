@@ -75,7 +75,7 @@ class FNC{
 
 
     // date_fr format = d/m/y
-    // return yyyy-mm-dd hh:ss:00
+    // and return yyyy-mm-dd hh:ss:00
     static function dateFrToMysql($date_fr = '') {
         if ($date_fr != '') {
             $date_fr_arr = explode("/", $date_fr);
