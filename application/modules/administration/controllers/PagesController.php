@@ -37,7 +37,7 @@ class Administration_PagesController extends Zend_Controller_Action
     public function indexAction()
     {
     	$tbl_page=new Application_Model_DbTable_Page();
-    	$tbl_photo=new Application_Model_DbTable_Photo();
+    	// $tbl_photo=new Application_Model_DbTable_Photo();
     	
     	$pages=$tbl_page->fetchAll("id not in(1,2,14,15)");
     	$this->view->pages=$pages;
@@ -48,7 +48,7 @@ class Administration_PagesController extends Zend_Controller_Action
     {
     	
     	$tbl_page=new Application_Model_DbTable_Page();
-    	$tbl_photo=new Application_Model_DbTable_Photo();
+    	// $tbl_photo=new Application_Model_DbTable_Photo();
     	$id=$this->getParam("id",0);
     	$page=$tbl_page->find($id)->current();
     	if($page){
@@ -80,23 +80,23 @@ class Administration_PagesController extends Zend_Controller_Action
 	    		
 	    		
 	    		
-	    		if($request->getParam('subaddphoto')){
-	    			if($_FILES['image']['size']>0) {
-	    				$tempFile = $_FILES['image']['tmp_name'];
-	    				$image="P".strftime("%d%m%y%H%M%S").".".pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-	    				$targetPath = "photos/".$image;
-	    				move_uploaded_file($tempFile,$targetPath);
+	    		// if($request->getParam('subaddphoto')){
+	    		// 	if($_FILES['image']['size']>0) {
+	    		// 		$tempFile = $_FILES['image']['tmp_name'];
+	    		// 		$image="P".strftime("%d%m%y%H%M%S").".".pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+	    		// 		$targetPath = "photos/".$image;
+	    		// 		move_uploaded_file($tempFile,$targetPath);
 	    				
-		    			$data=array(
-		    					"page_id"=>$id,
-		    					"src"=>$image,
-		    					"url"=>'',
-		    					"alt"=>''
-		    			);
-		    			$tbl_photo->insert($data);
-	    			}
-	    			$this->_redirect('administration/pages/index/ong/photos');
-	    		}
+		    	// 		$data=array(
+		    	// 				"page_id"=>$id,
+		    	// 				"src"=>$image,
+		    	// 				"url"=>'',
+		    	// 				"alt"=>''
+		    	// 		);
+		    	// 		$tbl_photo->insert($data);
+	    		// 	}
+	    		// 	$this->_redirect('administration/pages/index/ong/photos');
+	    		// }
 	    		
 	    	}
 	    	
