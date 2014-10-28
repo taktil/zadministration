@@ -1,9 +1,6 @@
 <?php
 
-class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
-{
-
-	
+class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
     protected function _initMC() {
         if (get_magic_quotes_gpc()) {
             $in = array(&$_GET, &$_POST, &$_COOKIE);
@@ -19,7 +16,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             unset($in);
         }
     }
-
     protected function _initConstants() {
         $registry = Zend_Registry::getInstance();
         $registry->constants = new Zend_Config($this->getApplication()->getOption('constants'));
@@ -32,18 +28,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 
 class FNC{
-    /**
-    *  Transforme une chaine encodée en UTF-8, et la convertit
-    *  en entitiées unicode &#xxx; pour que ça s'affiche correctement
-    *  dans les navigateurs, sans forcément tenir compte du meta
-    *  content-type charset...
-    *  @param String $source la chaine en UTF-8
-    *  @return String les entitées
-    *  @access public
-    *  @see httpwww.php.netutf8_decode
-    */
-
-
+	
     static function dateFrToTime($date) {
         if ($date != '') {
             $tab = explode('/', $date);
