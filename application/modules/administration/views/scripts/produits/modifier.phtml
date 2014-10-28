@@ -13,14 +13,7 @@ $(document).ready(function(){
 					
 					<ul class="content-box-tabs">
 						<li><a href="#tab1" <?php echo (!$this->ong)?'class="default-tab"':'' ?>>Modifier</a></li> <!-- href must be unique and match the id of target div -->
-                        <li><a href="#tab5" <?php echo ($this->ong=='localisation')?'class="default-tab"':'' ?> onclick="initialize();">Localisation</a></li>
-						<!-- <li><a href="#tab2" <?php echo ($this->ong=='infos')?'class="default-tab"':'' ?>>infos supplementaires</a></li> -->
-
-						<li><a href="#tab6" <?php echo ($this->ong=='quand')?'class="default-tab"':'' ?>>Quand et Comment ?</a></li>
-						<li><a href="#tab7" <?php echo ($this->ong=='conditions')?'class="default-tab"':'' ?>>Conditions tarifaires </a></li>
-
-                        <!-- <li><a href="#tab3" <?php echo ($this->ong=='jours')?'class="default-tab"':'' ?>>Jours</a></li> -->
-                        <li><a href="#tab4" <?php echo ($this->ong=='photos')?'class="default-tab"':'' ?>>Photos</a></li>
+                        
                         
 					</ul>
 					
@@ -38,93 +31,12 @@ $(document).ready(function(){
 							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
 								
 								<p>
-									<label>Titre</label>
-									<input class="text-input medium-input" type="text" id="titre" name="titre" value="<?php echo $this->escape($this->article->titre); ?>" />
-								</p>
-                                <p>
-									<label>Code</label>
-									<input class="text-input small-input" type="text" id="code" name="code" value="<?php echo $this->escape($this->article->code); ?>" />
-								</p>
-								<p>
-									<label>Tarif</label>
-									
-									<?php 
-										$tarif_article=null;
-										if($this->tarif_article){
-											$tarif_article=$this->tarif_article;
-										}
-									 ?>
-									<table>
-										<tr>
-											<td>Prix en public</td>
-											<td>Privé 1</td>
-											<td>Privé 2</td>
-											<td>Privé 3</td>
-											<td>Privé 4</td>
-											<td>Privé 5</td>
-											<td>Privé 6</td>
-										</tr>
-
-										<tr>
-											<td><input type="text" style="width: 60px" class="text-input" name="prix_public" value="<?php echo ($tarif_article)?$tarif_article->prix_public:''; ?>"></td>
-											<td><input type="text" style="width: 60px" class="text-input" name="prix_1" value="<?php echo ($tarif_article)?$tarif_article->prix_1:''; ?>"></td>
-											<td><input type="text" style="width: 60px" class="text-input" name="prix_2" value="<?php echo ($tarif_article)?$tarif_article->prix_2:''; ?>"></td>
-											<td><input type="text" style="width: 60px" class="text-input" name="prix_3" value="<?php echo ($tarif_article)?$tarif_article->prix_3:''; ?>"></td>
-											<td><input type="text" style="width: 60px" class="text-input" name="prix_4" value="<?php echo ($tarif_article)?$tarif_article->prix_4:''; ?>"></td>
-											<td><input type="text" style="width: 60px" class="text-input" name="prix_5" value="<?php echo ($tarif_article)?$tarif_article->prix_5:''; ?>"></td>
-											<td><input type="text" style="width: 60px" class="text-input" name="prix_6" value="<?php echo ($tarif_article)?$tarif_article->prix_6:''; ?>"></td>
-										</tr>
-
-									</table>
-
-
-								</p>
-
-								
-
-<p>
-									<label>Jours départ</label>
-									
-										<label><input type="checkbox" name="depart_dimanche" value="1" <?php echo ($this->article->depart_dimanche==1)?'checked="checked"':''; ?>>Dimanche</label>
-										<label><input type="checkbox" name="depart_lundi" value="1" <?php echo ($this->article->depart_lundi==1)?'checked="checked"':''; ?>>Lundi</label>
-										<label><input type="checkbox" name="depart_mardi" value="1" <?php echo ($this->article->depart_mardi==1)?'checked="checked"':''; ?>>Mardi</label>
-										<label><input type="checkbox" name="depart_mercredi" value="1" <?php echo ($this->article->depart_mercredi==1)?'checked="checked"':''; ?>>Mercredi</label>
-										<label><input type="checkbox" name="depart_jeudi" value="1" <?php echo ($this->article->depart_jeudi==1)?'checked="checked"':''; ?>>Jeudi</label>
-										<label><input type="checkbox" name="depart_vendredi" value="1" <?php echo ($this->article->depart_vendredi==1)?'checked="checked"':''; ?>>Vendredi</label>
-										<label><input type="checkbox" name="depart_samedi" value="1" <?php echo ($this->article->depart_samedi==1)?'checked="checked"':''; ?>>Samedi</label>
-								</p>
-
-
-
-
-								<?php 
-								$prochain_depart=new DateTime($this->article->prochain_depart);
-								 ?>
-								<p>
-									<label>Prochain depart</label>
-									<input class="text-input small-input" type="text" id="prochain_depart" name="prochain_depart" value="<?php 
-									if($prochain_depart->format('Y')>0){
-										echo $prochain_depart->format("d/m/Y");
-									}
-
-									 ?>" />
-								</p>
-
-                                <p>
-									<label>Titre 2 </label>
-									<input class="text-input medium-input" type="text" id="soustitre" name="soustitre" value="<?php echo $this->escape($this->article->soustitre); ?>" />
+									<label>Nom</label>
+									<input class="text-input medium-input" type="text" id="libelle" name="libelle" value="<?php echo $this->escape($this->produit->libelle); ?>" />
 								</p>
                                 
-                                 <p>
-									<label>Mini description</label>
-									<textarea class="text-input textarea ckeditor" id="minidescription" name="minidescription" cols="79" rows="5"><?php echo $this->escape($this->article->minidescription); ?></textarea>
-								</p>
+							
 
-								<p>
-									<label>Description</label>
-									<textarea class="text-input textarea ckeditor" id="description_main" name="description" cols="79" rows="15"><?php echo $this->escape($this->article->description); ?></textarea>
-								</p>
-								
 								
 								
 								
@@ -135,7 +47,7 @@ $(document).ready(function(){
                                         <?php 
 										foreach($this->categories as $catligne){
 										?>
-										<option value="<?php echo $catligne->id; ?>" <?php echo ($this->article->categorie_id==$catligne->id)?'selected="selected"':'' ?>><?php echo $this->escape($catligne->libelle); ?></option>
+										<option value="<?php echo $catligne->id; ?>" <?php echo ($this->produit->categorie_id==$catligne->id)?'selected="selected"':'' ?>><?php echo $this->escape($catligne->libelle); ?></option>
                                         <?php 
 										}
 										?>
@@ -143,45 +55,16 @@ $(document).ready(function(){
 								</p>
                                 
 
-                                <?php 
-								$themes_article=array();
-								foreach($this->themes_article as $dl){
-									$themes_article[]=$dl->theme_id;
-								}
-								?>
-                                <p>
-                                	<label>Themes</label> 
-                                    <?php foreach($this->themes as $dstligne){ ?>
-                                    <span class="check_list">
-                                    	<input type="checkbox" name="themes[]" <?php echo (in_array($dstligne->id,$themes_article))?'checked="checked"':'' ?> value="<?php echo $dstligne->id ?>" /> <?php echo $this->escape($dstligne->libelle); ?>
-                                    </span>
-                                    <?php } ?>
-                                </p>
-
-
-
-                                <?php 
-								$destinations_article=array();
-								foreach($this->destinations_article as $dl){
-									$destinations_article[]=$dl->destination_id;
-								}
-								?>
-                                <p>
-                                	<label>Destinations</label> 
-                                    <?php foreach($this->destinations as $dstligne){ ?>
-                                    <span class="check_list">
-                                    	<input type="checkbox" name="destinations[]" <?php echo (in_array($dstligne->id,$destinations_article))?'checked="checked"':'' ?> value="<?php echo $dstligne->id ?>" /> <?php echo $this->escape($dstligne->libelle); ?>
-                                    </span>
-                                    <?php } ?>
-                                </p>
+                                
+                                
 
 
 
 
 								
                                 <p>
-                                	<?php if($this->article->image!=''){ ?>
-                           	  <div><img src="/photos/<?php echo $this->article->image ?>" width="233" /></div>
+                                	<?php if($this->produit->image!=''){ ?>
+                           	  		<div><img src="/photos/<?php echo $this->produit->image ?>" width="233" /></div>
                                     <?php } ?>
 									<label>Image (250px / 200px)</label>
 									<input type="file" id="image" name="image" />
@@ -201,332 +84,6 @@ $(document).ready(function(){
 						
 					</div> <!-- End #tab1 -->
                     
-                    <div class="tab-content <?php echo ($this->ong=='localisation')?'default-tab':'' ?>" id="tab5">
-                    	<form class="form-horizontal" onSubmit="return Localiz();" method="post" action="">
-  
-  					
-  
-							<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>         
-                                <script>
-                                              var map;
-                                              
-                                              function Localiz(){
-                                                    $("#hh_map_center").val(map.getCenter());
-                                                    $("#hh_map_zoom").val(map.getZoom());
-                                                    return true;
-                                              }
-                                              var init_1=false;
-                                              function initialize() {
-                                                  if(!init_1){
-                                                      init_1=true;
-                                                var mapOptions = {
-                                                    <?php 
-                                                    if($this->localisation){ 
-                                                    ?>
-                                                     zoom: <?php echo $this->localisation->z ?>,
-                                                    center: new google.maps.LatLng(<?php echo $this->localisation->h ?>,<?php echo $this->localisation->v ?>),
-                                                    <?php } else { ?>
-                                                  zoom: 6,
-                                                  center: new google.maps.LatLng(32.369109705507874, -7.368695312500004),
-                                                  <?php } ?>
-                                                  mapTypeId: google.maps.MapTypeId.ROADMAP
-                                                };
-                                                map = new google.maps.Map(document.getElementById('google-map-v'),
-                                                    mapOptions);
-                                                  }
-                                              }
-                                            <?php if($this->ong=='localisation'){ ?>
-                                            $(document).ready(function(e) {
-                                                initialize();
-                                            });
-
-                                            <?php } ?>
-                                            </script>
-                                  <input type="hidden" name="hh_map_center" id="hh_map_center" />
-                                  <input type="hidden" name="hh_map_zoom" id="hh_map_zoom" />
-                                  
-                                  
-                                  <div style="width:800px; position:relative;"><img src="/assets/images/monotone_location_pin_marker.png" alt="" width="28" height="28" style="position:absolute; left:386px;top:172px; z-index:1002" />
-                                          <div id="google-map-v" style="width:100%; height:400px; background:#CCC"></div></div>
-      
-      
-      <div class="control-group">
-        <div class="controls" style="margin:0; padding-top:10px">
-          
-          <input type="submit" class="button" name="editlocalisation" value="modifier" />
-        </div>
-      </div>
-    </form>
-                    </div>
-
-
-
-
-                    
-					<div class="tab-content <?php echo ($this->ong=='quand')?'default-tab':'' ?>" id="tab6">
-                    	<form action="" method="post" enctype="multipart/form-data">
-							
-							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
-								<p>
-									<label>Quand et comment ?</label>
-									<textarea class="text-input textarea ckeditor" id="quand" name="quand" cols="79" rows="15"><?php echo $this->escape($this->article->quand); ?></textarea>
-								</p>
-								<p>
-									<label>Quand et comment ? (Anglais)</label>
-									<textarea class="text-input textarea ckeditor" id="quand_en" name="quand_en" cols="79" rows="15"><?php echo $this->escape($this->article->quand_en); ?></textarea>
-								</p>
-
-
-                                
-                                
-                                
-								<p>
-									<input class="button" type="submit" name="subedit_quand" value="Valider" />
-								</p>
-								
-                                
-                                
-							</fieldset>
-							
-							<div class="clear"></div><!-- End .clear -->
-							
-						</form>
-                    </div>
-                    
-					<div class="tab-content <?php echo ($this->ong=='conditions')?'default-tab':'' ?>" id="tab7">
-                    	<form action="" method="post" enctype="multipart/form-data">
-							
-							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
-								<p>
-									<label>Conditions </label>
-									<textarea class="text-input textarea ckeditor" id="conditions" name="conditions" cols="79" rows="15"><?php echo $this->escape($this->article->conditions); ?></textarea>
-								</p>
-								<p>
-									<label>Conditions  (Anglais)</label>
-									<textarea class="text-input textarea ckeditor" id="conditions_en" name="conditions_en" cols="79" rows="15"><?php echo $this->escape($this->article->conditions_en); ?></textarea>
-								</p>
-
-
-                                
-                                
-                                
-								<p>
-									<input class="button" type="submit" name="subedit_conditions" value="Valider" />
-								</p>
-								
-                                
-                                
-							</fieldset>
-							
-							<div class="clear"></div><!-- End .clear -->
-							
-						</form>
-                    </div>
-
-
-
-                    <div class="tab-content <?php echo ($this->ong=='jours')?'default-tab':'' ?>" id="tab3" style="height:auto; overflow:hidden;">
-                    	<div class="content-box column-left">
-                        	<div class="content-box-header">
-								<h3>Jours</h3>
-                            </div>
-                            <div class="tab-content default-tab">
-                           
-                            <div style="padding:15px">
-                            <?php 
-							if($this->jour){
-								?>
-                                <form action="" method="post" enctype="multipart/form-data">
-							
-							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
-								
-								<p>
-									<label>Titre</label>
-									<input class="text-input medium-input" type="text" id="libelle" name="libelle" value="<?php echo $this->escape($this->jour->libelle); ?>" />
-								</p>
-								<p>
-									<label>Description</label>
-									<textarea class="text-input textarea ckeditor" id="description" name="description" cols="79" rows="15"><?php echo $this->escape($this->jour->description); ?></textarea>
-								</p>
-
-
-								
-								
-								<p>
-                                	<?php if($this->jour->image!=''){
-										?>
-                                        <div>
-                                        	<img src="/photos/<?php echo $this->jour->image ?>" width="200" />
-                                        </div>
-										<?php
-                                    }?>
-									<label>Image</label>
-									<input type="file" id="image" name="image" />
-								</p>
-								
-
-								<div class="content-box">
-									<div class="content-box-header">
-										<h3>Traduction anglais</h3>
-										<div class="clear"></div>
-									</div>
-									<div class="content-box-content" style="display: none;">
-										<div class="tab-content default-tab">
-											<p>
-												<label>Titre</label>
-												<input class="text-input medium-input" type="text" id="libelle_en" name="libelle_en" value="<?php echo $this->escape($this->jour->libelle_en); ?>" />
-											</p>
-											<p>
-												<label>Description</label>
-												<textarea class="text-input textarea ckeditor" id="description_en" name="description_en" cols="79" rows="15"><?php echo $this->escape($this->jour->description_en); ?></textarea>
-											</p>
-										</div>
-									</div>
-								</div>
-
-
-								<p>
-									<input class="button" type="submit" name="subeditjour" value="Modifier" />
-								</p>
-								
-							</fieldset>
-							
-							<div class="clear"></div><!-- End .clear -->
-							
-						</form>
-								<?php 
-							}else{
-							?>
-                            <table>
-							
-							<thead>
-								<tr>
-								   <th>Titre</th>
-								   <th></th>
-								   <th></th>
-								   <th></th>
-								   <th>Actions</th>
-								</tr>
-								
-							</thead>
-						 
-							<tfoot>
-								<tr>
-									<td colspan="5">
-										
-									</td>
-								</tr>
-							</tfoot>
-						 
-							<tbody>
-								
-								<?php 
-								foreach($this->jours as $ligne){
-									
-									
-								?>
-								<tr>
-									<td><?php echo $this->escape($ligne->libelle); ?></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td>
-										<!-- Icons -->
-										 <a href="/administration/produits/modifier/id/<?php echo $this->article->id ?>/ong/jours/modifierjour/<?php echo $ligne->id ?>" title="Edit"><img src="<?php echo $this->baseUrl(); ?>/adminres/images/icons/pencil.png" alt="Edit" /></a>
-										 <a href="/administration/produits/supprimerjour/id/<?php echo $ligne->id ?>" title="Delete"><img src="<?php echo $this->baseUrl(); ?>/adminres/images/icons/cross.png" alt="Delete" /></a> 
-									</td>
-								</tr>
-								<?php } ?>
-								
-							</tbody>
-							
-						</table>
-                        <?php 
-						} 
-						?>
-                        </div>
-                            </div>
-                        </div>
-                        
-                        <div class="content-box column-right">
-                        	<div class="content-box-header">
-								<h3>Ajouter Jour</h3>
-                            </div>
-                            <div class="tab-content  default-tab">
-                            <form action="" method="post" enctype="multipart/form-data" style="padding:20px">
-							
-							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
-								
-								<p>
-									<label>Titre</label>
-									<input class="text-input medium-input" type="text" id="libelle" name="libelle" />
-								</p>
-                                
-                                <?php /* <p>
-									<label>Titre  </label>
-									<input class="text-input medium-input" type="text" id="titre" name="titre" />
-								</p> */?>
-                                
-								<p>
-									<label>Description</label>
-									<textarea class="text-input textarea ckeditor" id="description" name="description" cols="79" rows="15"></textarea>
-								</p>
-								
-								
-								<p>
-									<label>Image</label>
-									<input type="file" id="image" name="image" />
-								</p>
-								
-								<p>
-									<input class="button" type="submit" name="subaddjour" value="Ajouter" />
-								</p>
-								
-							</fieldset>
-							
-							<div class="clear"></div><!-- End .clear -->
-							
-						</form>
-                            </div>
-                        </div>
-                        
-                        
-                        
-                    </div>
-                    <div class="tab-content <?php echo ($this->ong=='photos')?'default-tab':'' ?>" id="tab4"> <!-- This is the target div. id must match the href of this div's tab -->
-					
-						
-						<form action="" method="post" enctype="multipart/form-data" class="formajout">
-							
-							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
-								<p>
-									<label>Ajouter une photo (1000px / 430px)</label>
-									<input type="file" id="image" name="image" />
-									<label for="recarder"><input type="checkbox" name="recadrer" value="1"> Recadrer Image </label>
-								</p>
-								
-								<p>
-									<input class="button" type="submit" name="subaddphoto" value="Ajouter" />
-								</p>
-								
-							</fieldset>
-							
-							<div class="clear"></div><!-- End .clear -->
-							
-						</form>
-						<div class="listphoto">
-                        	<?php foreach($this->photos as $ligne){ ?>
-                        	<div class="photoligne">
-                            	<img src="/photos/<?php echo $ligne->src ?>" width="200" />
-                                <a href="/administration/produits/modifier/id/<?php echo $this->article->id ?>/delphoto/<?php echo $ligne->id ?>">supprimer</a>
-                               
-                            </div>
-                            <?php } ?>
-                        </div>
-						
-					</div> <!-- End #tab1 -->
-				    
-					
 				</div> <!-- End .content-box-content -->
 				
 			</div>

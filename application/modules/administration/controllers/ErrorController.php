@@ -1,10 +1,11 @@
 <?php
 
-class ErrorController extends Zend_Controller_Action
+class Administration_ErrorController extends Zend_Controller_Action
 {
 
     public function errorAction()
     {
+        
     	 $layout = Zend_Layout::getMvcInstance();
         $layout->setLayout('errorlayout');
         $errors = $this->_getParam('error_handler');

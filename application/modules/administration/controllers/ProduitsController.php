@@ -5,6 +5,7 @@ class Administration_ProduitsController extends Zend_Controller_Action
 
     public function init()
     {
+
     	$admin_user = new Zend_Session_Namespace('admin_user');
         if(!Zend_Auth::getInstance()->hasIdentity() or !isset($admin_user->user))
         {
@@ -20,13 +21,14 @@ class Administration_ProduitsController extends Zend_Controller_Action
     }
 	public function supprimerjourAction()
     {
+
     	$tbl_jour=new Application_Model_DbTable_Jour();
     	$idjour=$this->getParam("id",0);
     	$jour=$tbl_jour->find($idjour)->current();
     	if($jour){
-    		$id_article=$jour->article_id;
+    		$id_produit=$jour->produit_id;
     		$jour->delete();
-    		$this->redirect("/administration/produits/modifier/id/".$id_article.'/ong/jours');
+    		$this->redirect("/administration/produits/modifier/id/".$id_produit.'/ong/jours');
     	}
     	exit();
     }
@@ -35,10 +37,10 @@ class Administration_ProduitsController extends Zend_Controller_Action
     {
     	$tbl_produit=new Application_Model_DbTable_Produit();
     	$id=$this->getParam("id",0);
-    	$article=$tbl_produit->find($id)->current();
-    	if($article){
+    	$produit=$tbl_produit->find($id)->current();
+    	if($produit){
     		
-    		$article->delete();
+    		$produit->delete();
     		$this->redirect("/administration/produits");
     	}
     	exit();
@@ -90,36 +92,19 @@ class Administration_ProduitsController extends Zend_Controller_Action
     	
     	$tbl_categorie=new Application_Model_DbTable_Categorie();
     	$tbl_produit= new Application_Model_DbTable_Produit();
-    	$tbl_photo= new Application_Model_DbTable_Photo();
-    	$tbl_jour= new Application_Model_DbTable_Jour();
-    	$tbl_localisation=new Application_Model_DbTable_ProduitLocalisation();
     	
-    	$tbl_destination=new Application_Model_DbTable_Destination();
-    	$tbl_theme=new Application_Model_DbTable_Theme();
-    	$tbl_produit_destination=new Application_Model_DbTable_ProduitDestination();
-    	$tbl_produit_theme=new Application_Model_DbTable_ProduitTheme();
-    	$tbl_tarif= new Application_Model_DbTable_Tarif();
     	$id=$this->getParam("id");
-    	$article=$tbl_produit->find($id)->current();
-    	if($article){
+    	$produit=$tbl_produit->find($id)->current();
+    	if($produit){
 	    	$request=$this->getRequest();
 	    	
 	    	
-	    	$id_jour=$this->getParam("modifierjour",0);
-	    	if($id_jour>0){
-	    		$jour=$tbl_jour->find($id_jour)->current();
-	    		if($jour){
-	    			
-	    			
-	    			$this->view->jour=$jour;
-	    		}
-	    	}
 	    	
 	    	
 	    	
 	    	if ($request->isPost()) {
-	    		if($request->getParam('titre')){
-		    		$image=$article->image;
+
+		    		$image=$produit->image;
 		    		if($_FILES['image']['size']>0) {
 		    			$tempFile = $_FILES['image']['tmp_name'];
 		    			$image="P".strftime("%d%m%y%H%M%S").".".pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
@@ -159,235 +144,49 @@ class Administration_ProduitsController extends Zend_Controller_Action
 		    				 
 		    		);
 		    		
-		    		$tbl_produit->update($data,array("id=?"=>$article->id));
-		    		$hasTarif=false;
-		    		if($article->tarif_id!=0){
-		    			$tarif_article=$tbl_tarif->find($article->tarif_id)->current();
-		    			if($tarif_article){
+		    		$tbl_produit->update($data,array("id=?"=>$produit->id));
+		    		
+		    		
 
-		    				$hasTarif=true;
-		    				$data = array(
-		                        "libelle"=>$article->titre,
-		                        "prix_1"=>$this->getParam("prix_1",0),
-		                        "prix_2"=>$this->getParam("prix_2",0),
-		                        "prix_3"=>$this->getParam("prix_3",0),
-		                        "prix_4"=>$this->getParam("prix_4",0),
-		                        "prix_5"=>$this->getParam("prix_5",0),
-		                        "prix_6"=>$this->getParam("prix_6",0),
-		                        "prix_public"=>$this->getParam("prix_public",0),
-		                    );
-		                    $tbl_tarif->update($data,array("id=?"=>$tarif_article->id));
-		    			}
-		    		}
-		    		if(!$hasTarif){
-		    			$data = array(
-	                        "libelle"=>$article->titre,
-	                        "prix_1"=>$this->getParam("prix_1",0),
-	                        "prix_2"=>$this->getParam("prix_2",0),
-	                        "prix_3"=>$this->getParam("prix_3",0),
-	                        "prix_4"=>$this->getParam("prix_4",0),
-	                        "prix_5"=>$this->getParam("prix_5",0),
-	                        "prix_6"=>$this->getParam("prix_6",0),
-	                        "prix_public"=>$this->getParam("prix_public",0),
-	                    );
-	                    $tarif_id=$tbl_tarif->insert($data);
-	                    $tbl_produit->update(array("tarif_id"=>$tarif_id),"id=".$article->id);
-		    		}
-
-		    		// modifications destinations 
-		    		$tbl_produit_destination->delete("article_id=".$article->id);
-		    		$destinations_s=$this->getParam("destinations",array());
-		    		foreach ($destinations_s as $id_dest){
-		    			$tbl_produit_destination->insert(array(
-		    					"article_id"=>$article->id,
-		    					"destination_id"=>$id_dest
-		    			));
-		    		}
+		    		// // modifications destinations 
+		    		// $tbl_produit_destination->delete("produit_id=".$produit->id);
+		    		// $destinations_s=$this->getParam("destinations",array());
+		    		// foreach ($destinations_s as $id_dest){
+		    		// 	$tbl_produit_destination->insert(array(
+		    		// 			"produit_id"=>$produit->id,
+		    		// 			"destination_id"=>$id_dest
+		    		// 	));
+		    		// }
 
 
-		    		// modifications themes 
-		    		$tbl_produit_theme->delete("article_id=".$article->id);
-		    		$themes_s=$this->getParam("themes",array());
-		    		foreach ($themes_s as $id_dest){
-		    			$tbl_produit_theme->insert(array(
-		    					"article_id"=>$article->id,
-		    					"theme_id"=>$id_dest
-		    			));
-		    		}
+		    		// // modifications themes 
+		    		// $tbl_produit_theme->delete("produit_id=".$produit->id);
+		    		// $themes_s=$this->getParam("themes",array());
+		    		// foreach ($themes_s as $id_dest){
+		    		// 	$tbl_produit_theme->insert(array(
+		    		// 			"produit_id"=>$produit->id,
+		    		// 			"theme_id"=>$id_dest
+		    		// 	));
+		    		// }
 
 
 
 
 		    		
-		    		$this->redirect('/administration/produits/modifier/id/'.$article->id);
+		    		$this->redirect('/administration/produits/modifier/id/'.$produit->id);
 	    		}
 
 
-
-	    		if($request->getParam('subedit_quand')){
-	    			
-	    			$data = array(
-		    				"quand"=>FNC::cleanHtmlTags($this->getParam("quand",'')),
-		    				"quand_en"=>FNC::cleanHtmlTags($this->getParam("quand_en",'')),
-		    		);
-		    		$tbl_produit->update($data,array("id=?"=>$article->id));
-	    			$this->redirect('/administration/produits/modifier/id/'.$article->id.'/ong/quand');
-	    		}
 	    		
-
-				if($request->getParam('subedit_conditions')){
-	    			$data = array(
-		    				"conditions"=>FNC::cleanHtmlTags($this->getParam("conditions",'')),
-		    				"conditions_en"=>FNC::cleanHtmlTags($this->getParam("conditions_en",'')),
-
-		    		);
-		    		$tbl_produit->update($data,array("id=?"=>$article->id));
-	    			$this->redirect('/administration/produits/modifier/id/'.$article->id.'/ong/conditions');
-	    		}
-
-	    		
-				
-
-
-	    		if($request->getParam('subaddjour')){
-	    			
-	    			$image="";
-		    		if($_FILES['image']['size']>0) {
-		    			$tempFile = $_FILES['image']['tmp_name'];
-		    			$image="P".strftime("%d%m%y%H%M%S").".".pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-		    			$targetPath = "photos/".$image;
-		    			move_uploaded_file($tempFile,$targetPath);
-		    		}
-	    			
-	    			$data = array(
-	    					"libelle"=>$this->getParam("libelle",''),
-	    					"description"=>FNC::cleanHtmlTags($this->getParam("description",'')),
-	    					
-	    					"libelle_en"=>$this->getParam("libelle_en",''),
-	    					"description_en"=>FNC::cleanHtmlTags($this->getParam("description_en",'')),
-
-	    					"image"=>$image,
-	    					"article_id"=>$article->id,
-	    			);
-	    			
-	    			$tbl_jour->insert($data);
-	    			
-	    			$this->redirect('/administration/produits/modifier/id/'.$article->id.'/ong/jours');
-	    		}
-	    		
-	    		if($request->getParam('subeditjour')){
-	    			
-	    			
-	    			$image=$jour->image;
-		    		if($_FILES['image']['size']>0) {
-		    			$tempFile = $_FILES['image']['tmp_name'];
-		    			$image="P".strftime("%d%m%y%H%M%S").".".pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-		    			$targetPath = "photos/".$image;
-		    			move_uploaded_file($tempFile,$targetPath);
-		    		}
-	    			
-	    			$data = array(
-	    					"libelle"=>$this->getParam("libelle",''),
-	    					"description"=>FNC::cleanHtmlTags($this->getParam("description",'')),
-	    					"libelle_en"=>$this->getParam("libelle_en",''),
-	    					"description_en"=>FNC::cleanHtmlTags($this->getParam("description_en",'')),
-
-	    					"image"=>$image,
-	    			);
-	    			
-	    			$tbl_jour->update($data,array("id=?"=>$jour->id));
-	    			
-	    			$this->redirect('/administration/produits/modifier/id/'.$article->id.'/ong/jours');
-	    			
-	    		}
-	    		
-	    		
-	    		if($request->getParam('subaddphoto')){
-	    			if($_FILES['image']['size']>0) {
-	    				$tempFile = $_FILES['image']['tmp_name'];
-	    				$image="P".strftime("%d%m%y%H%M%S").".".pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-	    				$targetPath = "photos/".$image;
-	    				$recadrer=($this->getParam("recadrer"))?true:false;
-	    				FNC::copyImg($tempFile,1000,430,$targetPath,$recadrer);
-	    				
-	    				
-		    			$data=array(
-		    					"article_id"=>$article->id,
-		    					"src"=>$image,
-		    					"url"=>'',
-		    					"alt"=>''
-		    			);
-		    			$tbl_photo->insert($data);
-	    			}
-	    			$this->redirect('/administration/produits/modifier/id/'.$article->id.'/ong/photos');
-	    		}
-	    		
-	    		if($request->getParam('editlocalisation')){
-	    			$localisation=$tbl_localisation->fetchAll("article_id=".$article->id)->current();
-	    			
-	    			$hh_map_center=$this->getParam("hh_map_center");
-	    			$hh_map_zoom=$this->getParam("hh_map_zoom");
-	    			
-	    			$hh_map_center=str_replace("(", "", $hh_map_center);
-	    			$hh_map_center=str_replace(")", "", $hh_map_center);
-	    			
-	    			
-	    			
-	    			if($hh_map_center && $hh_map_zoom){
-		    			if($localisation) {
-		    				$arr_center=explode(",", $hh_map_center);
-			    			$data=array(
-			    					"article_id"=>$article->id,
-			    					"h"=>trim($arr_center[0]),
-			    					"v"=>trim($arr_center[1]),
-			    					"z"=>$hh_map_zoom
-			    			);
-			    			$tbl_localisation->update($data, array("article_id=?"=>$article->id));
-			    			
-		    			}else{
-		    				$arr_center=explode(",", $hh_map_center);
-			    			$data=array(
-			    					"article_id"=>$article->id,
-			    					"h"=>trim($arr_center[0]),
-			    					"v"=>trim($arr_center[1]),
-			    					"z"=>$hh_map_zoom
-			    			);
-			    			$tbl_localisation->insert($data);
-		    			}
-	    			}
-	    			$this->redirect('/administration/produits/modifier/id/'.$article->id.'/ong/localisation');
-	    		}
-	    		
-	    		
-	    	}
-	    	$iddelphoto=$this->getParam("delphoto",0);
-	    	if($iddelphoto>0){
-		    	$photo=$tbl_photo->find($iddelphoto)->current();
-		    	if($photo){
-		    		$photo->delete();
-		    		$this->redirect('/administration/produits/modifier/id/'.$article->id.'/ong/photos');
-		    	}
-	    	}
-	    	
 	    	
 	    	
 	    	$this->view->ong=$this->getParam('ong',null);
 	    	
-	    	$this->view->destinations_article=$tbl_produit_destination->fetchAll("article_id=".$article->id);
-	    	$this->view->themes_article=$tbl_produit_theme->fetchAll("article_id=".$article->id);
-
-	    	$this->view->localisation=$tbl_localisation->fetchAll("article_id=".$article->id)->current();
+	    	$this->view->produit=$produit;
 	    	
-	    	$this->view->article=$article;
-	    	$this->view->tarif_article=$tbl_tarif->find($article->tarif_id)->current();
-	    	$this->view->photos=$tbl_photo->fetchAll("article_id=".$id);
 	    	$this->view->categories=$tbl_categorie->fetchAll();
-	    	$this->view->destinations=$tbl_destination->fetchAll();
-	    	$this->view->themes=$tbl_theme->fetchAll();
 	    	
-	    	$this->view->jours=$tbl_jour->fetchAll("article_id=".$id);
-	    	
-	    	$this->view->articles=$tbl_produit->fetchAll();
+	    	$this->view->produits=$tbl_produit->fetchAll();
 	    	
 	    	
     	}else{
